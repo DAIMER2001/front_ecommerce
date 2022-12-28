@@ -1,0 +1,25 @@
+<section class="section-container">
+  <h1>Products</h1>
+  <div class="products">
+      <mat-card class="card" *ngFor="let product of products">
+        <mat-card-header>
+          <div mat-card-avatar class="header-image"></div>
+          <mat-card-title>{{ product.name }}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="product.image" [alt]="product.name">
+        <mat-card-content>
+          <p>
+            {{ product.description }}
+          </p>
+          <p>
+            Price: ${{ product.price }}
+          </p>
+        </mat-card-content>
+      </mat-card>
+  </div>
+</section>
+<section class="section-container">
+  <h1>Shopping Cart</h1>
+  <div class="shopping-cart">
+  </div>
+</section>
