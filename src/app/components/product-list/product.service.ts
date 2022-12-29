@@ -8,6 +8,11 @@ import { catchError } from 'rxjs/operators';
 
 import { Product } from '../../models/product';
 import { HandleError, HttpErrorHandler } from 'src/app/config/http-error-handler.service';
+import { DialogElements } from '../dialog/dialog-element.component';
+import { MatDialog } from '@angular/material/dialog';
+import { environment } from '../../../environments/environment.prod';
+import { AccountService } from 'src/app/service/account/account.service';
+import { Client } from 'src/app/models';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,9 +21,12 @@ const httpOptions = {
   })
 };
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductService {
-  productUrl = 'http://localhost:8000/api/v1/product';
+  car: Product[] = [];
+  productUrl = '/api/v1/product';
   private handleError: HandleError;
 
   constructor(
@@ -27,8 +35,13 @@ export class ProductService {
     this.handleError = httpErrorHandler.createHandleError('ProductesService');
   }
 
+  getCarShop() {
+    console.log(this.car)
+    return this.car;
+  }
+
   getProduct(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productUrl)
+    return this.http.get<Product[]>(environment.apiUrl + this.productUrl)
       .pipe(
         catchError(this.handleError('getProduct', []))
       );
@@ -40,7 +53,7 @@ export class ProductService {
     const options = term ?
      { params: new HttpParams().set('name', term) } : {};
 
-    return this.http.get<Product[]>(this.productUrl, options)
+    return this.http.get<Product[]>(environment.apiUrl + this.productUrl, options)
       .pipe(
         catchError(this.handleError<Product[]>('searchProductes', []))
       );
@@ -48,14 +61,14 @@ export class ProductService {
 
 
   addProduct(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.productUrl, product, httpOptions)
+    return this.http.post<Product>(environment.apiUrl + this.productUrl, product, httpOptions)
       .pipe(
         catchError(this.handleError('addProduct', product))
       );
   }
 
   deleteProduct(id: number): Observable<unknown> {
-    const url = `${this.productUrl}/${id}`; 
+    const url = `${environment.apiUrl + this.productUrl}/${id}`; 
     return this.http.delete(url, httpOptions)
       .pipe(
         catchError(this.handleError('deleteProduct'))
@@ -63,7 +76,7 @@ export class ProductService {
   }
 
   updateProduct(product: Product): Observable<Product> {
-    return this.http.put<Product>(this.productUrl, product, httpOptions)
+    return this.http.put<Product>(environment.apiUrl + this.productUrl, product, httpOptions)
       .pipe(
         catchError(this.handleError('updateProduct', product))
       );

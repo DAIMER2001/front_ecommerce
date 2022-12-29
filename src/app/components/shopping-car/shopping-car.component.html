@@ -1,0 +1,38 @@
+<section class="section-container">
+  <h1>Shopping</h1>
+  <div class="products">
+    <mat-card class="card"  *ngFor="let product of items">
+      <mat-card-header>
+        <div mat-card-avatar class="header-image">
+          <button
+            type="button"
+            [style.background]="'transparent'"
+            (click)="removeProductToShop(product)"
+          >
+            <mat-icon class="icon-add-product">cancel</mat-icon>
+          </button>
+        </div>
+        <mat-card-title class="titleProduct">{{ product.name }}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image class="image-card" [src]="product.image" [alt]="product.name" />
+      <mat-card-content>
+        <h4 class="price-product">Cantidad: {{ product.cantidad }}</h4>
+        <h4 class="price-product">Precio: ${{ product.price }}</h4>
+        <h5 class="price-product">Puntos a acumular: {{ (product.price * 0.010) }}</h5>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+
+<div *ngIf="items.length" class="form-element">
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    class="button"
+    (click)="sellProducts()"
+  >
+    <mat-icon>shopping_cart</mat-icon>Finalizar Comprar 
+  </button>
+</div>
+

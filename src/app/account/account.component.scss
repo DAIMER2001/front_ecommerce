@@ -1,0 +1,37 @@
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+.container {
+  padding: 10px;
+  width: 100% !important;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.form {
+  width: 100%;
+}
+
+.form-element {
+  width: 100%;
+  padding: 20px 20px 25px 10px;
+}
+.form-control {
+  @media only screen and (max-width: 748px) {  
+    width: 50%;
+  }
+  @media only screen and (max-width: 860px) {  
+      width: 50%;
+  }
+  @media only screen and (min-width: 860px ){  
+      width: 50%;
+  }
+  @media only screen and (min-width: 1500px) {  
+      width: 50%;
+  }
+}
+.button {
+  width: 100%;
+}

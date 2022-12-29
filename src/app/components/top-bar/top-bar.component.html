@@ -1,6 +1,12 @@
-<a [routerLink]="['/']">
-    <h1>My Store</h1>
-</a>
-  
-<a class="button fancy-button"><i class="material-icons">shopping_cart</i>Checkout</a>
-  
+<a
+routerLink="/"
+  class="button fancy-button"
+  ><mat-icon>storeFront</mat-icon>Tienda Virtual</a
+>
+
+<a
+  routerLink="/shopping"
+  class="button fancy-button"
+  ><mat-icon>shopping_cart</mat-icon>Carrito compras</a
+>
+<a *ngIf="user" class="button fancy-button" (click)="logout()">Logout</a>

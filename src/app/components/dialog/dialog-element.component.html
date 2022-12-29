@@ -1,0 +1,12 @@
+<mat-dialog-content>
+  {{ data.title }}
+</mat-dialog-content>
+<div *ngIf="data.msg" mat-dialog-content>{{ data.msg }}</div>
+<div *ngIf="!data.msg" mat-dialog-content>Información de tu compra</div>
+<div *ngFor="let msg of data.infoPedido" mat-dialog-content>{{ msg }}</div>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" mat-dialog-close tabindex="-1">
+    {{ cancelButtonText }}
+  </button>
+</mat-dialog-actions>

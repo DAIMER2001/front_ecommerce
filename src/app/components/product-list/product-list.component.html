@@ -1,0 +1,42 @@
+<section class="section-container">
+  <h1>Products</h1>
+  <h3>Puntos acumulados al día: {{ user.accumulation_points }}</h3>
+  <div class="products">
+    <mat-card class="card" *ngFor="let product of products">
+      <mat-card-header>
+        <div mat-card-avatar class="header-image">
+          <button
+            type="button"
+            [style.background]="'transparent'"
+            (click)="addProductToShop(product)"
+          >
+            <mat-icon class="icon-add-product">add_circle</mat-icon>
+          </button>
+        </div>
+        <mat-card-title class="titleProduct">{{ product.name }}</mat-card-title>
+      </mat-card-header>
+      <img
+        mat-card-image
+        class="image-card"
+        [src]="product.image"
+        [alt]="product.name"
+      />
+      <mat-card-content>
+        <h4 class="price-product">Precio: ${{ product.price }}</h4>
+        <div *ngIf="product.acumulation_points">
+          <h4 class="price-product">
+            Minimo puntos bono de producto: {{ product.acumulation_points }}
+          </h4>
+          <button 
+          class="button fancy-button"
+          color="primary"
+          *ngIf="user.accumulation_points >= product.acumulation_points" 
+          class="button fancy-button" 
+          (click)="redimePoints(product)"
+            >Redimir puntos</button
+          >
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

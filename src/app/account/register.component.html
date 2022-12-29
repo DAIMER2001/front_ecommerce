@@ -1,0 +1,72 @@
+<h4 class="card-header">Register</h4>
+<div class="container">
+  <mat-card class="card">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field class="form-element">
+        <mat-label for="username">Username</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="username"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['username']['errors'] }"
+        />
+        <mat-error
+          *ngIf="submitted && f['username']['errors']"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f['username']['errors']['required']">
+            First Name is required
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-element">
+        <mat-label for="password">Password</mat-label>
+        <input
+          matInput
+          type="password"
+          formControlName="password"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['password']['errors'] }"
+        />
+        <mat-error
+          *ngIf="submitted && f['password']['errors']"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f['password']['errors']['required']">
+            Password is required
+          </div>
+          <div *ngIf="f['password']['errors']['minlength']">
+            Password must be at least 6 characters
+          </div>
+        </mat-error>
+      </mat-form-field>
+      <div class="form-element">
+        <button
+          [disabled]="loading"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Register
+        </button>
+      </div>
+      <div class="form-element">
+        <button
+          routerLink="../login"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
