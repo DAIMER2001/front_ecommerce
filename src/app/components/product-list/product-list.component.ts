@@ -58,8 +58,16 @@ export class ProductListComponent implements OnInit{
     .pipe(first())
     .subscribe({
       next: () => {
-        this.clientService.getClientByName().subscribe({})
-        this.router.navigateByUrl('/');
+        this.dialog.open(DialogElements, {
+          data: {
+            title: 'Producto redimido correctamente',
+            infoPedido: [
+              `Producto Obsequiado: ${product.name} \n - Precio: ${product.price}`, 
+              `Nuevo acumulado de puntos: ${this.user.accumulation_points} - ${product.acumulation_points} = ${(this.user.accumulation_points - product.acumulation_points)}`],
+          }
+        }).afterClosed().subscribe(() => {
+          this.clientService.getClientByName().subscribe({})
+        });
       }
     });
   }
