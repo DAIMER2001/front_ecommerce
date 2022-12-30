@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
     this.accountService
-      .register(this.form.value)
+      .register(this.f['username'].value, this.f['password'].value)
       .pipe(first())
       .subscribe({
         next: () => {

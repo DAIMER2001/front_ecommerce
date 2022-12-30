@@ -60,9 +60,9 @@ export class AccountService {
       console.log(this.router, 'after')
   }
 
-  register(client: RegisterClient) {
-    this.registerClient.name = client.name;
-    this.registerClient.password = client.password;
+  register(username: string, password: string) {
+    this.registerClient.name = username;
+    this.registerClient.password = password;
     return this.http.post<Client>(environment.apiUrl + this.clientUrl, this.registerClient)
     .pipe(
         catchError(this.handleError('addProduct', []))
