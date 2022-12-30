@@ -4,11 +4,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AccountService } from '../service/account/account.service';
 import { AlertService } from '../service/alert/alert.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogElements } from '../components/dialog/dialog-element.component';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./account.component.scss'],
+  providers: [DialogElements]
 })
 export class RegisterComponent implements OnInit {
   form: FormGroup;
@@ -20,7 +23,8 @@ export class RegisterComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public dialog: MatDialog
   ) {
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
@@ -49,8 +53,14 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Usuario Registrado exitosamente');
-          this.router.navigate(['../login'], { relativeTo: this.route });
+          this.dialog.open(DialogElements, {
+            data: {
+              title: 'registro exitoso',
+              msg: 'ahora puedes iniciar sesión',
+            }
+          }).afterClosed().subscribe(() => {
+            this.router.navigate(['../login'], { relativeTo: this.route });
+          });
         },
         error: (error) => {
           this.alertService.error('Problemas en el formulario de registro');
